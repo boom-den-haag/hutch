@@ -74,7 +74,9 @@ module Hutch
       @broker.ack(delivery_info.delivery_tag)
     rescue => ex
       acknowledge_error(delivery_info, properties, @broker, ex)
-      handle_error(properties, payload, consumer, ex)
+      logger.error "#{ex.class} - #{ex.message}"
+      logger.error (['backtrace:'] + ex.backtrace).join("\n")
+      # handle_error(properties, payload, consumer, ex)
     end
 
     def with_tracing(klass)
