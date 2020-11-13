@@ -72,10 +72,10 @@ module Hutch
       consumer_instance = consumer.new.tap { |c| c.broker, c.delivery_info = @broker, delivery_info }
       with_tracing(consumer_instance).handle(message)
       @broker.ack(delivery_info.delivery_tag)
-    rescue => ex
-      acknowledge_error(delivery_info, properties, @broker, ex)
-      logger.error "#{ex.class} - #{ex.message}"
-      logger.error (['backtrace:'] + ex.backtrace).join("\n")
+    # rescue => ex
+    #   acknowledge_error(delivery_info, properties, @broker, ex)
+      # logger.error "#{ex.class} - #{ex.message}"
+      # logger.error (['backtrace:'] + ex.backtrace).join("\n")
       # handle_error(properties, payload, consumer, ex)
     end
 
